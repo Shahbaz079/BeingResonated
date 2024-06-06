@@ -1,13 +1,39 @@
+import { useDispatch,useSelector } from "react-redux"
 import { Link } from "react-router-dom"
+import { useState } from "react"
+import MenuBar from "./auth/MenuBar"
 
 const LandingPage = () => {
-
+const {userInfo}=useSelector(state=>
+  state.auth
+)
 
   return (
     <>
    <div className="container  h-[100vh] flex flex-wrap justify-center items-center overflow-hidden" >
-    <div className="flex flex-wrap w-[70%] text-center">
-      <Link to='' className="w-[20%] h-[20%] ml-[2rem] mt-[4rem]">
+
+    <div className={userInfo?"w-[50%] flex flex-col relative":"hidden"}>
+      <MenuBar/>
+      <div className="text-center font-bold h-[30%] mb-[4rem]">Hello {userInfo.username}!</div>
+
+      <div className="h-[70%] border rounded-lg pt-[12rem] pb-[12rem] pl-[2rem]" >
+        Notifications from your team
+        and challenges you are dealing with will appear here
+      </div>
+
+
+    </div>
+
+   <div className={userInfo?"hidden":"flex flex-wrap"}>
+      <Link to='' className="font-bold border rounded-lg m-[2rem] p-4 bg-green-400 ">Login</Link>
+      <Link to='/register' className="font-bold border rounded-lg m-[2rem] p-4 bg-green-400 ">Register</Link>
+    </div>
+
+
+
+    <div 
+    className={userInfo?"flex flex-col w-[45%] text-left":"flex flex-wrap w-[65%] text-center"}>
+      <Link to='' className={userInfo?"w-[100%] text-left border rounded-lg p-4 m-3":"w-[20%] h-[20%] ml-[2rem] mt-[4rem] border rounded-lg"}>
       <div className="">
         <img src="" alt="" />
         <div className="">
@@ -17,7 +43,7 @@ const LandingPage = () => {
       </div>
       </Link>
 
-      <Link to='' className="w-[20%] h-[20%] ml-[2rem] mt-[4rem]">
+      <Link to='' className={userInfo?"w-[100%] text-left border rounded-lg p-4 m-3":"w-[20%] h-[20%] ml-[2rem] mt-[4rem] border rounded-lg"}>
       <div className="">
         <img src="" alt="" />
         <div className="">
@@ -28,7 +54,7 @@ const LandingPage = () => {
       </div>
       </Link>
 
-      <Link to='' className="w-[20%] h-[20%] ml-[2rem] mt-[4rem]">
+      <Link to='' className={userInfo?"w-[100%] text-left border rounded-lg p-4 m-3":"w-[20%] h-[20%] ml-[2rem] mt-[4rem] border rounded-lg"}>
       <div className="">
         <img src="" alt="" />
         <div className="">
@@ -38,7 +64,7 @@ const LandingPage = () => {
       </div>
       </Link>
 
-      <Link to='' className="w-[20%] h-[20%] ml-[2rem] mt-[4rem]">
+      <Link to='' className={userInfo?"w-[100%] text-left border rounded-lg p-4 m-3":"w-[20%] h-[20%] ml-[2rem] mt-[4rem] border rounded-lg"}>
       <div className="">
         <img src="" alt="" />
         <div className="">
@@ -48,7 +74,7 @@ const LandingPage = () => {
       </div>
       </Link>
 
-      <Link to='' className="w-[20%] h-[20%] ml-[2rem] mt-[4rem]">
+      <Link to='' className={userInfo?"w-[100%] text-left border rounded-lg p-4 m-3":"w-[20%] h-[20%] ml-[2rem] mt-[4rem] border rounded-lg"}>
       <div className="">
         <img src="" alt="" />
         <div className="">
@@ -59,11 +85,9 @@ const LandingPage = () => {
       </Link>
 
     </div>
-    <div className="flex flex-col justify-between items-center">
-      <Link to='' className="font-bold border rounded-lg m-[2rem] p-4 bg-green-400 mb-[10rem]">Login</Link>
-      <Link to='' className="font-bold border rounded-lg m-[2rem] p-4 bg-green-400 mt-[10rem]">Register</Link>
     </div>
-   </div>
+   
+   
    
     </>
   )
