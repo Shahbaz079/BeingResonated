@@ -6,11 +6,12 @@ import MenuBar from "./auth/MenuBar"
 const LandingPage = () => {
 const {userInfo}=useSelector(state=>
   state.auth
-)
+);
 
+if (userInfo) {
   return (
-    <>
-   <div className="container  h-[100vh] flex flex-wrap justify-center items-center overflow-hidden" >
+    // Block of code for when the condition is true
+    <div className="container  h-[100vh] flex flex-wrap justify-center items-center overflow-hidden" >
 
     <div className={userInfo?"w-[50%] flex flex-col relative":"hidden"}>
       <MenuBar/>
@@ -87,10 +88,37 @@ const {userInfo}=useSelector(state=>
     </div>
     </div>
    
-   
-   
-    </>
-  )
+  );
+} else {
+  return (
+    
+    // Block of code for when the condition is false
+    <div>
+       <div className="container w-[100vw] h-[90vh] m-0 " >
+    
+
+    <div className="w-[50%] h-[80%]">
+
+      <div className="w-[80%] border rounded-lg h-[100%] m-4 p-4 text-center underline text-2xl">
+        BEing Resonated 
+      </div>
+    </div>
+    <div className="m-4 flex items-center justify-between">
+<Link to='/login' className="p-4 px-7 font-bold border border-lg rounded-lg bg-blue-950 m-5 cursor-pointer hover:bg-blue-800 transition-all">Login</Link>
+<Link to='/register' className="p-4 px-7 border border-lg rounded-lg bg-blue-950 m-5 cursor-pointer font-bold hover:bg-blue-800 transition-all">Register</Link>
+    </div>
+
+  </div>
+    
+    </div>
+
+
+  );
+}
+  
 }
 
-export default LandingPage
+
+
+
+export default LandingPage;

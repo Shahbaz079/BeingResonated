@@ -9,12 +9,14 @@ import { Provider } from 'react-redux';
 
 import LandingPage from './pages/LandingPage.jsx';
 import Registration from './pages/auth/Registration.jsx';
+import LoginPage from './pages/auth/LoginPage.jsx';
 
 const router=createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<App/>}>
       <Route index={true} path='/' element={<LandingPage/>}/>
       <Route path='/register' element={<Registration/>}/>
+      <Route path='/login' element={<LoginPage/>}/>
 
     </Route>
   )

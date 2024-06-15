@@ -44,8 +44,51 @@ try {
 }
 
 
+});
+
+
+const loginUser=asyncHandler(async(req,res)=>{
+  const {email,password}=req.body;
+  
+  
+const existingUser=await User.findOne({email});
+
+if (existingUser){
+  const isPasswordValid= await bcrypt.compare(password,existingUser.password)
+
+
+if (isPasswordValid){
+  createToken(res,existingUser._id)
+
+   res.status(201).json({
+    _id:existingUser._id,
+    username:existingUser.username,
+    isAdmin:existingUser.isAdmin,
+   }) 
+}else{
+  res.status(404);
+  throw new Error("Password Incorrect");
+};
+}else{
+  res.status(404);
+  throw new Error("User Not Found");
+}
+})
+
+const logoutCurrentUser=asyncHandler(async(req,res)=>{
+res.cookie("jwt","",{
+  httpOnly:true,
+  expires:new Date(0),
+});
+
+
+res.status(200).json({message:"logged out successfully"});
 })
 
 
 
-export {createUser}
+
+
+
+
+export {createUser,loginUser,logoutCurrentUser}
