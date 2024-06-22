@@ -1,7 +1,7 @@
 import { useState,useEffect } from "react"
 import { Link,useLocation,useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
-import { useRegisterMutation } from "../../../redux/api/userApiSlice.js"
+import { useRegisterMutation,useUploadimageMutation } from "../../../redux/api/userApiSlice.js"
 import { useDispatch,useSelector } from "react-redux"
 
 import { setCredentials } from "../../../redux/features/auth/authSlice.js"
@@ -11,11 +11,13 @@ const [username,setUsername]=useState('');
 const [email,setEmail]=useState("");
 const[password,setPassword]=useState('');
 const [confirmPassword,setConfirmPassword]=useState('');
+const [image,setImage]=useState("");
 
   const dispatch=useDispatch();
   const navigate=useNavigate();
 
   const [register,{isLoading}]=useRegisterMutation();
+  const [uplaodimage]=useUploadimageMutation();
  
 
   
@@ -30,7 +32,7 @@ const [confirmPassword,setConfirmPassword]=useState('');
       toast.error("Passwords do not match")
     }else{
       try {
-        const res=await register({username,email,password}).unwrap();
+        const res=await register({username,email,password,image}).unwrap();
         
         dispatch(setCredentials({...res}));
 
@@ -45,6 +47,22 @@ const [confirmPassword,setConfirmPassword]=useState('');
 
 
 
+
+  }
+
+  const uploadFileHandler=async(e)=>{
+    e.preventDefault();
+    const formData=new FormData();
+    formData.append("image",e.target.files[0]);
+
+    try {
+      const res=await uplaodimage(formData).unwrap();
+      toast.success(res.message);
+      console.log(res.image);
+      setImage(res.image);
+    } catch (error) {
+      toast.error(error?.data?.message ||error.error );
+    }
 
   }
 
@@ -97,7 +115,26 @@ const [confirmPassword,setConfirmPassword]=useState('');
 
           </form>
         </div>
-        <div className="animation w-[50vw]"></div>
+        <div className="animation w-[50vw] flex flex-wrap justify-center items-center overflow-hidden">
+
+              {
+                image && (
+                  <img src={image} alt="display picture" className="block mx-4 max-w-[70%] rounded-lg"/>
+                )
+              }
+
+              <div className="mb-2">
+              <label className="border text-white px-4 block w-full text-center rounded-lg cursor-pointer  py-4">
+                {image?image.name:"Upload Profile Picture"}
+                <input type="file" 
+                name="image"
+                accept="image/*"
+                onChange={uploadFileHandler}
+                className={!image?"hidden":"text-white"}
+                />
+              </label>
+              </div>
+        </div>
       </div>
     </>
   )

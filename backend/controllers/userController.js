@@ -4,7 +4,7 @@ import User from "../models/userModel.js";
 import createToken from "../utils/createToken.js";
 
 const createUser=asyncHandler(async(req,res)=>{
-const {username,email,password}=req.body;
+const {username,email,password,image}=req.body;
 
 
 if(!username||!email||!password){
@@ -20,7 +20,7 @@ const salt=await bcrypt.genSalt(18);
 const hashedPassword=await bcrypt.hash(password,salt);
 
 const newUser=new User({
-  username,email,password:hashedPassword
+  username,email,password:hashedPassword,image
 })
 
 try {
@@ -33,7 +33,9 @@ try {
     _id:newUser._id,
     username:newUser.username,
     email:newUser.email,
-    isAdmin:newUser.isAdmin
+    isAdmin:newUser.isAdmin,
+    image:newUser.image
+    
   })
 
 

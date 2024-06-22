@@ -1,5 +1,5 @@
 
-import { USERS_URL } from "../constants.js";
+import { USERS_IMAGE_URL, USERS_URL } from "../constants.js";
 import { apiSlice } from "./apiSlice.js";
 
 export const userApiSlice=apiSlice.injectEndpoints({
@@ -26,10 +26,18 @@ export const userApiSlice=apiSlice.injectEndpoints({
         url:`${USERS_URL}/logout`,
         method:"POST",
       })
+    }),
+
+    uploadimage:builder.mutation({
+      query:(data)=>({
+       url:`${USERS_IMAGE_URL}`,
+       method:"POST",
+       body:data,
+      })
     })
 
 
 
   })
 })
-export const {useRegisterMutation,useLoginMutation,useLogoutMutation}=userApiSlice;
+export const {useRegisterMutation,useLoginMutation,useLogoutMutation,useUploadimageMutation}=userApiSlice;

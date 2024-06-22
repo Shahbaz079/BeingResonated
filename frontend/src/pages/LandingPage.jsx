@@ -3,23 +3,25 @@ import { Link } from "react-router-dom"
 import { useState } from "react"
 import MenuBar from "./auth/MenuBar"
 
+
 const LandingPage = () => {
 const {userInfo}=useSelector(state=>
   state.auth
 );
+
 
 if (userInfo) {
   return (
     // Block of code for when the condition is true
     <div className="container  h-[100vh] flex flex-wrap justify-center items-center overflow-hidden" >
 
-    <div className={userInfo?"w-[50%] flex flex-col relative":"hidden"}>
+    <div className={userInfo?"w-[50%] flex flex-col relative overflow":"hidden"}>
       <MenuBar/>
       <div className="text-center font-bold h-[30%] mb-[4rem]">Hello {userInfo.username}!</div>
 
-      <div className="h-[70%] border rounded-lg pt-[12rem] pb-[12rem] pl-[2rem]" >
-        Notifications from your team
-        and challenges you are dealing with will appear here
+
+      <div className="h-[70%] border rounded-lg pt-[12rem] pb-[2rem] pl-[2rem]" >
+        <img src={userInfo.image} alt="" className="h-[200px] w-[400px] "/>
       </div>
 
 
